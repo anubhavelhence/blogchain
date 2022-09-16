@@ -28,6 +28,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgCreatePost int = 100
 
+	opWeightMsgCreateGeohash = "op_weight_msg_create_geohash"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCreateGeohash int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -71,6 +75,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgCreatePost,
 		blogsimulation.SimulateMsgCreatePost(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgCreateGeohash int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCreateGeohash, &weightMsgCreateGeohash, nil,
+		func(_ *rand.Rand) {
+			weightMsgCreateGeohash = defaultWeightMsgCreateGeohash
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCreateGeohash,
+		blogsimulation.SimulateMsgCreateGeohash(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

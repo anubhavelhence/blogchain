@@ -8,6 +8,7 @@ option go_package = "blog/x/blog/types";
 // Msg defines the Msg service.
 service Msg {
       rpc CreatePost(MsgCreatePost) returns (MsgCreatePostResponse);
+  rpc CreateGeohash(MsgCreateGeohash) returns (MsgCreateGeohashResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -19,6 +20,17 @@ message MsgCreatePost {
 
 message MsgCreatePostResponse {
   uint64 id = 1;
+}
+
+message MsgCreateGeohash {
+  string creator = 1;
+  string ssid = 2;
+  string bssid = 3;
+  string geohash = 4;
+  string timestamp = 5;
+}
+
+message MsgCreateGeohashResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

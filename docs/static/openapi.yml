@@ -30529,6 +30529,8 @@ paths:
       tags:
         - Query
 definitions:
+  blog.blog.MsgCreateGeohashResponse:
+    type: object
   blog.blog.MsgCreatePostResponse:
     type: object
     properties:
